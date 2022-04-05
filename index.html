@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Web Form </title>
+		<style>
+			.right
+			{
+				text-align: right;
+				font-weight: 700;
+			}
+			.bottom
+			{
+				text-align: center;
+				background-color: #ADD8E6;
+			}
+			table
+			{
+				border-collapse: collapse;
+				margin: 20px auto;
+			}
+			td
+			{
+				border: 1px solid black;
+				padding: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="./register.php" method="post">
+			<table>
+				<colgroup>
+					<col style="width: 150px" />
+				</colgroup>
+				<tfoot>
+					<tr>
+						<td class="bottom" colspan="4">
+							<input type="submit" value="Submit" />
+							<input type="reset" value="Reset" />
+						</td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<tr>
+						<td class="right">
+							<label for="first-name">Last Name</label>
+						</td>
+						<td colspan="3">
+							<input type="text" id="first-name" size="42" value="" name="fname" />
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="last-name">Last Name</label>
+						</td>
+						<td colspan="3">
+							<input type="text" id="last-name" size="42" value="" name="lname" />
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="address">Address</label>
+						</td>
+						<td colspan="3">
+							<textarea id="address" cols="31" name="address"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="country">Country</label>
+						</td>
+						<td colspan="3">
+							<select id="country" name="country">
+								<option value="Egypt" selected="selected">Egypt</option>
+								<option value="Australia">Australia</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="male">Gender</label>
+						</td>
+						<td colspan="3">
+							<input type="radio" name="gender" id="male" value="male" checked="checked" />
+							<label for="male">Male</label>
+							<input type="radio" name="gender" id="female" value="female" />
+							<label for="female">Female</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="skills">Skills</label>
+						</td>
+						<td colspan="3">
+							<input type="checkbox" name="skills[]" id="php" value="php" checked />
+							<label for="php">PHP</label>
+							<input type="checkbox" name="skills[]" id="js" value="js" />
+							<label for="js">JS</label>
+							<input type="checkbox" name="skills[]" id="mysql" value="mysql" />
+							<label for="mysql">MYSQL</label>
+							<input type="checkbox" name="skills[]" id="postgressql" value="postgressql" checked />
+							<label for="postgressql">Postgressql</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="username">User Name</label>
+						</td>
+						<td colspan="3">
+							<input type="text" id="username" size="42" value="" name="username" />
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="password">Password</label>
+						</td>
+						<td colspan="3">
+							<input type="password" id="password" size="42" value="" name="password" />
+						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="department">Department</label>
+						</td>
+						<td colspan="3">
+							<input type="text" id="department" size="42" value="" name="department" placeholder="Open Source" />
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<label for="confirm">123</label> <br />
+							<input type="hidden"value="123" name="confirm" />
+							<input type="text" id="confirm" size="42" value="" name="verify" />
+						</td>
+						<td>
+							Please Insert The Code Below Box
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</form>
+	</body>
+</html>
