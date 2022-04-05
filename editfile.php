@@ -56,15 +56,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     // Create User
     try {
-        $userfile = fopen("user.txt", "w");
-        $user = implode(':', $data);
 
+        // get data
+        if(isset($_POST['key']))
+            $key1 = $_POST['key'];
 
+        $filename = 'user.txt';
+        $file = fopen($filename, 'r'); 
 
-        fwrite($userfile, $user."\n");
-        fclose($userfile);
+        if ($file) 
+            $lines = explode("\n", fread($file, filesize($filename)));
+
+        if($key1 !== -1)
+            $lines[$key1] = implode(':', $data);
+        fclose($file);
+
+        // create
+        $file = fopen($filename, "w");
+
+        foreach ($lines as $line) 
+            fwrite($file, $line."\n");
+        
+        fclose($file);
 
         header("Location:showusers.php");
+        exit();
     } catch (Exception $ex) {
         var_dump($ex);
     }

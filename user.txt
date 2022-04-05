@@ -1,1 +1,1 @@
-Mohamed:Ahmed:khh:Egypt:male:Admin:PdCtH^w4fwv3hJrkbk:hgfd:php,js,mysql,postgressql
+ahmed:ali:adding:Egypt:male:Admin:PdCtH^w4fwv3hJrkbk:os:php,js

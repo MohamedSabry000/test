@@ -52,23 +52,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     // Create User
     try {
 
-        $filename = 'user.txt';
-        $file = fopen($filename, 'r'); 
+        // $filename = 'user.txt';
+        // $file = fopen($filename, 'r'); 
 
-        if ($file) 
-            $lines = explode("\n", fread($file, filesize($filename)));
+        // if ($file) 
+        //     $lines = explode("\n", fread($file, filesize($filename)));
         
-        if($data !== -1){
-            unset($lines[$data]);
+        if(!empty($data)){
+            // unset($lines[$data]);
 
             
             
-            $userfile = fopen("user.txt", "w");
-            foreach($lines as $line)
-                if($line != "")
-                    fwrite($userfile, $line."\n");
+            $userfile = fopen("user.txt", "a");
+            $data = implode(':', $data);
+
+            fwrite($userfile, $data."\n");
             
-            fwrite($userfile, $user."\n");
+            // fwrite($userfile, $user."\n");
             
             fclose($userfile);
         }
