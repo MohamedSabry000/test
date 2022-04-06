@@ -71,23 +71,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         if(isset($_POST['key']))
             $key1 = $_POST['key'];
 
-        $filename = 'user.txt';
-        $file = fopen($filename, 'r'); 
+        if($key1 !== -1){
+            require "pdo/crud.php";
 
-        if ($file) 
-            $lines = explode("\n", fread($file, filesize($filename)));
 
-        if($key1 !== -1)
-            $lines[$key1] = isset($img)? implode(':', $data).":".$img : implode(':', $data);
-        fclose($file);
+            $res = isset($img)? update_user($key1, $data, $img): update_user($key1, $data);
+            if(!$res){
+                echo "Error";
+                exit();
+            }
+        }
+            
 
-        // create
-        $file = fopen($filename, "w");
+        // $filename = 'user.txt';
+        // $file = fopen($filename, 'r'); 
 
-        foreach ($lines as $line) 
-            fwrite($file, $line."\n");
+        // if ($file) 
+        //     $lines = explode("\n", fread($file, filesize($filename)));
+
+        // if($key1 !== -1)
+        //     $lines[$key1] = isset($img)? implode(':', $data).":".$img : implode(':', $data);
+        // fclose($file);
+
+        // // create
+        // $file = fopen($filename, "w");
+
+        // foreach ($lines as $line) 
+        //     fwrite($file, $line."\n");
         
-        fclose($file);
+        // fclose($file);
 
         header("Location:showusers.php");
         exit();

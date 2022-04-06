@@ -6,21 +6,31 @@
         exit();
     }
 
+  require "pdo/crud.php";
+
   $data=-1;
   if(isset($_GET["key"])){
       $data=$_GET["key"];
   }
 
-  $filename = 'user.txt';
-  $file = fopen($filename, 'r'); 
+  // $filename = 'user.txt';
+  // $file = fopen($filename, 'r'); 
 
-  if ($file) 
-      $lines = explode("\n", fread($file, filesize($filename)));
+  // if ($file) 
+  //     $lines = explode("\n", fread($file, filesize($filename)));
 	
   $fields=array();
 
 	if($data !== -1 && $data * -1 <= 0){
-    $fields = explode(":", $lines[$data]);
+    $fields = get_one_user($data);
+    if($fields) {
+      $fields = $fields[0];
+    }
+    var_dump($fields);
+    // if($user){
+
+    // }
+    // $fields = explode(":", $lines[$data]);
   }	
 
 
@@ -40,43 +50,43 @@
       <tr>
         <td colspan="2" align="center" valign="middle"><h1>View User</h1></td>
       </tr>
-      <?php if(isset($fields) && isset($fields[0]) &&  $fields[0] != ""){ ?>
+      <?php if(isset($fields) && isset($fields->id)){ ?>
         <tr>
           <td width="30%" align="right" valign="middle">First Name</td>
-          <td width="70%" align="left" valign="middle"><input type="text" name="fname" value="<?php echo $fields[0]; ?>" /></td>
+          <td width="70%" align="left" valign="middle"><input type="text" name="fname" value="<?php echo $fields->fname; ?>" /></td>
         </tr>
         <tr>
           <td align="right" valign="middle">Last Name</td>
-          <td align="left" valign="middle"><input type="text" name="lname" value="<?php echo $fields[1]; ?>" /></td>
+          <td align="left" valign="middle"><input type="text" name="lname" value="<?php echo $fields->lname; ?>" /></td>
         </tr>
         <tr>
           <td align="right" valign="middle">Address</td>
-          <td align="left" valign="middle"><input type="text" name="address" value="<?php echo $fields[2]; ?>" /></td>
+          <td align="left" valign="middle"><input type="text" name="address" value="<?php echo $fields->address; ?>" /></td>
         </tr>
         <tr>
           <td align="right" valign="middle">Country</td>
-          <td align="left" valign="middle"><input type="text" name="country" value="<?php echo $fields[3]; ?>" /></td>
+          <td align="left" valign="middle"><input type="text" name="country" value="<?php echo $fields->country; ?>" /></td>
         </tr>
         <tr>
           <td align="right" valign="middle">Gender</td>
-          <td align="left" valign="middle"><input type="text" name="country" value="<?php echo $fields[4]; ?>" /></td>
+          <td align="left" valign="middle"><input type="text" name="gender" value="<?php echo $fields->gender; ?>" /></td>
         </tr>
         <tr>
           <td align="right" valign="middle">User Name</td>
-          <td align="left" valign="middle"><input type="text" name="country" value="<?php echo $fields[5]; ?>" /></td>
+          <td align="left" valign="middle"><input type="text" name="username" value="<?php echo $fields->username; ?>" /></td>
         </tr>
         <tr>
           <td align="right" valign="middle">Department</td>
-          <td align="left" valign="middle"><input type="text" name="country" value="<?php echo $fields[7]; ?>" /></td>
+          <td align="left" valign="middle"><input type="text" name="department" value="<?php echo $fields->department; ?>" /></td>
         </tr>
         <tr>
           <td align="right" valign="middle">Skills</td>
-          <td align="left" valign="middle"><input type="text" name="country" value="<?php echo $fields[8]; ?>" /></td>
+          <td align="left" valign="middle"><input type="text" name="skills" value="<?php echo $fields->skills; ?>" /></td>
         </tr>
-        <?php if(isset($fields[9]) && $fields[9] != ""){ ?>
+        <?php if(isset($fields->image) && $fields->image != ""){ ?>
           <tr>
             <td align="right" valign="middle">Image</td>
-            <td align="left" valign="middle"><img src="<?php echo $fields[9]; ?>" width="250" height="250" /></td>
+            <td align="left" valign="middle"><img src="<?php echo $fields->image; ?>" width="250" height="250" /></td>
           </tr>
         <?php } ?>
         <tr>

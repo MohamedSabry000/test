@@ -5,7 +5,7 @@ session_start();
         header("Location: login.php");
         exit();
     }
-    
+
     $data=-1;
     if(isset($_GET["key"])){
         $data=$_GET["key"];
@@ -18,17 +18,18 @@ session_start();
         $lines = explode("\n", fread($file, filesize($filename)));
 	
 	if($data !== -1){
-		unset($lines[$data]);
+		// unset($lines[$data]);
 
+        require "pdo/crud.php";
+
+		delete_user($data);
+		// $userfile = fopen("user.txt", "w");
+        // foreach($lines as $line){
+        //     if($line != "")
+        //         fwrite($userfile, $line."\n");
+        // }
         
-		
-		$userfile = fopen("user.txt", "w");
-        foreach($lines as $line){
-            if($line != "")
-                fwrite($userfile, $line."\n");
-        }
-        
-        fclose($userfile);
+        // fclose($userfile);
 	}
 	
     header("Location:showusers.php");

@@ -66,16 +66,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         if(!empty($data)){
             // unset($lines[$data]);
 
+            require "pdo/crud.php";
             
-            
-            $userfile = fopen("user.txt", "a");
-            $data = isset($img)? implode(':', $data).":".$img : implode(':', $data);
+            $user = add_user($data, $img);
+            if(!$user){
+                header("Location:index.php");
+                exit();
+            }
+            // $userfile = fopen("user.txt", "a");
+            // $data = isset($img)? implode(':', $data).":".$img : implode(':', $data);
 
-            fwrite($userfile, $data."\n");
+            // fwrite($userfile, $data."\n");
             
-            // fwrite($userfile, $user."\n");
+            // // fwrite($userfile, $user."\n");
             
-            fclose($userfile);
+            // fclose($userfile);
         }
 
         header("Location:showusers.php");
