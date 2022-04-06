@@ -8,39 +8,54 @@
 		$data0=-1;
 		$localkey=$_GET["key"];
 		
-		$filename = 'user.txt';
-		$file = fopen($filename, 'r'); 
+		// $filename = 'user.txt';
+		// $file = fopen($filename, 'r'); 
 
-		if ($file) 
-			$lines = explode("\n", fread($file, filesize($filename)));
+		// if ($file) 
+		// 	$lines = explode("\n", fread($file, filesize($filename)));
 		
-		if (!empty($lines)) {
-            foreach ($lines as $key => $line) {
+		// if (!empty($lines)) {
+            // foreach ($lines as $key => $line) {
 					
-                if($data0 == -1 && $line != "") {
+                if($data0 == -1) {
 						
-					if ($key."" === $localkey){
-						$data0 = explode(":", $line);
-						foreach($fieldsNeeded as $key => $field){
-							if(isset($data0[$key])){
-								$data[$field] = $data0[$key];
-							}
+					if ($localkey){
+
+						require "pdo/crud.php";
+            			$user = get_one_user($localkey)[0];
+
+						if($user){
+							// $data0 = $user;
+
+
+							$user->skills = explode(",", $user->skills);
 						}
+
+						// $data0 = explode(":", $line);
+						// foreach($fieldsNeeded as $key => $field){
+						// 	if(isset($data0[$key])){
+						// 		$data[$field] = $data0[$key];
+						// 	}
+						// }
 						
-						$sk = explode(",", $data0[8]);
-						$data["skills"] = array();
-						foreach($sk as $skill){
-							array_push($data["skills"], $skill);
-						}
+						// echo "<pre>";
+						// print_r($user);
+						// echo "</pre>";
+
+						// $sk = explode(",", $data0[8]);
+						// $data["skills"] = array();
+						// foreach($sk as $skill){
+						// 	array_push($data["skills"], $skill);
+						// }
 						
 					}
 
 				}
-			}
-		}
+			// }
+		// }
 		
-		$data = json_encode($data);
-		$data = json_decode($data);
+		// $data = json_encode($data);
+		// $data = json_decode($data);
 
 		//exit();
 	}
@@ -109,7 +124,7 @@
 							<label for="first-name">First Name</label>
 						</td>
 						<td colspan="3">
-							<input type="text" id="first-name" size="42" value="<?php echo isset($data->fname) ? $data->fname : ""; ?>" name="fname" />
+							<input type="text" id="first-name" size="42" value="<?php echo isset($user->fname) ? $user->fname : ""; ?>" name="fname" />
 							<label class="error"><?php echo isset($error->fname) ? $error->fname : null ?></label>
 						</td>
 						
@@ -119,7 +134,7 @@
 							<label for="last-name">Last Name</label>
 						</td>
 						<td colspan="3">
-							<input type="text" id="last-name" size="42" value="<?php echo isset($data->lname) ? $data->lname : ""; ?>" name="lname" />
+							<input type="text" id="last-name" size="42" value="<?php echo isset($user->lname) ? $user->lname : ""; ?>" name="lname" />
 							<label class="error"><?php echo isset($error->lname) ? $error->lname : null ?></label>
 						</td>
 					</tr>
@@ -128,7 +143,7 @@
 							<label for="address">Address</label>
 						</td>
 						<td colspan="3">
-							<textarea id="address" cols="31" name="address" ><?php echo isset($data->address) ? $data->address : ""; ?></textarea>
+							<textarea id="address" cols="31" name="address" ><?php echo isset($user->address) ? $user->address : ""; ?></textarea>
 							<label class="error"><?php echo isset($error->address) ? $error->address : null ?></label>
 						</td>
 					</tr>
@@ -138,8 +153,8 @@
 						</td>
 						<td colspan="3">
 							<select id="country" name="country">
-								<option value="Egypt" <?php echo isset($data->country) && $data->country==="Egypt" ? "selected" : ""; ?>>Egypt</option>
-								<option value="Australia" <?php echo isset($data->country) && $data->country==="Australia" ? "selected" : ""; ?>>Australia</option>
+								<option value="Egypt" <?php echo isset($user->country) && $user->country==="Egypt" ? "selected" : ""; ?>>Egypt</option>
+								<option value="Australia" <?php echo isset($user->country) && $user->country==="Australia" ? "selected" : ""; ?>>Australia</option>
 							</select>
 							<label class="error"><?php echo isset($error->country) ? $error->country : null ?></label>
 						</td>
@@ -149,9 +164,9 @@
 							<label for="male">Gender</label>
 						</td>
 						<td colspan="3">
-							<input type="radio" name="gender" id="male" value="male" <?php echo isset($data->gender) && $data->gender==="male" ? "checked" : ""; ?> />
+							<input type="radio" name="gender" id="male" value="male" <?php echo isset($user->gender) && $user->gender==="male" ? "checked" : ""; ?> />
 							<label for="male">Male</label>
-							<input type="radio" name="gender" id="female" value="female" <?php echo isset($data->gender) && $data->gender==="female" ? "checked" : ""; ?> />
+							<input type="radio" name="gender" id="female" value="female" <?php echo isset($user->gender) && $user->gender==="female" ? "checked" : ""; ?> />
 							<label for="female">Female</label>
 							<br />
 							<label class="error"><?php echo isset($error->gender) ? $error->gender : null ?></label>
@@ -165,7 +180,7 @@
 							<?php
 								foreach (['php', 'js', 'mysql', 'postgressql'] as $value) {
 									# code...
-									$checked = isset($data->skills) && in_array($value, $data->skills) ? "checked" : "";
+									$checked = isset($user->skills) && in_array($value, $user->skills) ? "checked" : "";
 									echo 
 									'<input type="checkbox" name="skills[]" id="'.$value.'" value="'.$value.'" '. $checked .' />
 									 <label for="'.$value.'">'.$value.'</label>';
@@ -178,7 +193,7 @@
 							<label for="username">User Name</label>
 						</td>
 						<td colspan="3">
-							<input type="text" id="username" size="42" value="<?php echo isset($data->username) ? $data->username : ""; ?>" name="username" />
+							<input type="text" id="username" size="42" value="<?php echo isset($user->username) ? $user->username : ""; ?>" name="username" />
 							<label class="error"><?php echo isset($error->username) ? $error->username : null ?></label>
 						</td>
 					</tr>
@@ -196,7 +211,7 @@
 							<label for="department">Department</label>
 						</td>
 						<td colspan="3">
-							<input type="text" id="department" size="42" value="<?php echo isset($data->department) ? $data->department : ""; ?>" name="department" placeholder="Open Source" />
+							<input type="text" id="department" size="42" value="<?php echo isset($user->department) ? $user->department : ""; ?>" name="department" placeholder="Open Source" />
 							<label class="error"><?php echo isset($error->department) ? $error->department : null ?></label>
 						</td>
 					</tr>

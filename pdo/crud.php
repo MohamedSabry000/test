@@ -123,7 +123,7 @@ function update_user($id, $data, $img = "")
         $db=connectToDatabase();
         if($db){
             if(isset($img) && $img != ""){
-                $update_query = 'update users set `fname`=:fname,`lname`=:lname,`address`=:address,`country`=:country,`gender`=:gender,`username`=:user,`password`=:password,`department`=:department,`skills`=:skills,`image`=:img where `id`='.$id;
+                $update_query = 'update users set `fname`=?,`lname`=?,`address`=?,`country`=?,`gender`=?,`username`=?,`password`=?,`department`=?,`skills`=?,`image`="'.$img.'" where `id`='.$id;
             } else {
                 $update_query = 'update users set `fname`=:fname,`lname`=:lname,`address`=:address,`country`=:country,`gender`=:gender,`username`=:user,`password`=:password,`department`=:department,`skills`=:skills where `id`='.$id;
             }
@@ -131,18 +131,18 @@ function update_user($id, $data, $img = "")
             print_r($data);
             echo "</pre>";
             // exi  t();
+            echo $update_query;
             $update_stmt = $db->prepare($update_query);
 
-            $update_stmt->bindParam(":fname",$data['fname'] );
-            $update_stmt->bindParam(":lname",$data['lname'] );
-            $update_stmt->bindParam(":address",$data['address'] );
-            $update_stmt->bindParam(":country",$data['country'] );
-            $update_stmt->bindParam(":gender",$data['gender'] );
-            $update_stmt->bindParam(":username",$data['username'] );
-            $update_stmt->bindParam(":password",$data['password'] );
-            $update_stmt->bindParam(":department",$data['department'] );
-            $update_stmt->bindParam(":skills",$data['skills'] );
-
+            $update_stmt->bindParam(1,$data['fname'], PDO::PARAM_STR );
+            $update_stmt->bindParam(2,$data['lname'], PDO::PARAM_STR ); 
+            $update_stmt->bindParam(3,$data['address'], PDO::PARAM_STR ); 
+            $update_stmt->bindParam(4,$data['country'], PDO::PARAM_STR ); 
+            $update_stmt->bindParam(5,$data['gender'], PDO::PARAM_STR ); 
+            $update_stmt->bindParam(6,$data['username'], PDO::PARAM_STR ); 
+            $update_stmt->bindParam(7,$data['password'], PDO::PARAM_STR ); 
+            $update_stmt->bindParam(8,$data['department'], PDO::PARAM_STR ); 
+            $update_stmt->bindParam(9,$data['skills'], PDO::PARAM_STR ); 
 
             $res=$update_stmt->execute();
             if ($res){
