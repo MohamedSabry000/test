@@ -2,6 +2,12 @@
 
 <?php 
 
+    session_start();
+    if(!isset($_SESSION["id"])){
+        header("Location: login.php");
+        exit();
+    }
+
     // Open the file
     $filename = 'user.txt';
     $file = fopen($filename, 'r'); 
@@ -44,7 +50,7 @@
 		</style>
 	</head>
 	<body>
-
+<button onclick="window.location.href='logout.php'">Logout</button>
     <table>
         <colgroup>
             <col style="width: 150px" />

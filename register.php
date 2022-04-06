@@ -45,6 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         header("Location:index.php?error={$err}&data={$data}");
         exit();
     }
+
+    if($_FILES['f1']['name']){
+        move_uploaded_file($_FILES['f1']['tmp_name'], "image/".$_FILES['f1']['name']);
+        $img = "image/".$_FILES['f1']['name'];
+    }
     
     if(count($data["skills"]) > 0)
         $data["skills"] = implode(',', $data["skills"]);
@@ -64,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             
             
             $userfile = fopen("user.txt", "a");
-            $data = implode(':', $data);
+            $data = isset($img)? implode(':', $data).":".$img : implode(':', $data);
 
             fwrite($userfile, $data."\n");
             

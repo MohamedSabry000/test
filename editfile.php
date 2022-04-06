@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+    if(!isset($_SESSION["id"])){
+        header("Location: login.php");
+        exit();
+    }
+
 $error = array();
 // $fname = $lname = $address = $country = $gender = $username = $password = $confirm = $verify = $department = null;
 
@@ -54,6 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     if(count($data["skills"]) > 0)
         $data["skills"] = implode(',', $data["skills"]);
 
+    if($_FILES['f1']['name']){
+        move_uploaded_file($_FILES['f1']['tmp_name'], "image/".$_FILES['f1']['name']);
+        $img = "image/".$_FILES['f1']['name'];
+    }
     // Create User
     try {
 
@@ -68,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $lines = explode("\n", fread($file, filesize($filename)));
 
         if($key1 !== -1)
-            $lines[$key1] = implode(':', $data);
+            $lines[$key1] = isset($img)? implode(':', $data).":".$img : implode(':', $data);
         fclose($file);
 
         // create

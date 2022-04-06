@@ -1,4 +1,11 @@
 <?php 
+
+session_start();
+    if(!isset($_SESSION["id"])){
+        header("Location: login.php");
+        exit();
+    }
+    
     $data=-1;
     if(isset($_GET["key"])){
         $data=$_GET["key"];

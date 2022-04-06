@@ -1,5 +1,11 @@
 <?php
 
+    session_start();
+    if(!isset($_SESSION["id"])){
+        header("Location: login.php");
+        exit();
+    }
+
   $data=-1;
   if(isset($_GET["key"])){
       $data=$_GET["key"];
@@ -67,6 +73,12 @@
           <td align="right" valign="middle">Skills</td>
           <td align="left" valign="middle"><input type="text" name="country" value="<?php echo $fields[8]; ?>" /></td>
         </tr>
+        <?php if(isset($fields[9]) && $fields[9] != ""){ ?>
+          <tr>
+            <td align="right" valign="middle">Image</td>
+            <td align="left" valign="middle"><img src="<?php echo $fields[9]; ?>" width="250" height="250" /></td>
+          </tr>
+        <?php } ?>
         <tr>
           <td align="right" valign="middle"></td>
         </tr>

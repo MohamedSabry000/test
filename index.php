@@ -89,7 +89,7 @@
 		</style>
 	</head>
 	<body>
-		<form action=<?php echo $localkey? "./editfile.php" : "./register.php" ?> method="post">
+		<form action=<?php echo $localkey? "./editfile.php" : "./register.php" ?> method="post" enctype="multipart/form-data">
 			<input type="hidden" name="key" value="<?php echo $localkey; ?>" />
 			<table>
 				<colgroup>
@@ -211,6 +211,16 @@
 						<td>
 							Please Insert The Code Below Box
 						</td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label for="file">File</label>
+						</td>
+						<td>
+							<input type="file" id="file" name="f1" /> image
+							<label class="error"><?php echo isset($error->file) ? $error->file : null ?></label>
+						</td>
+						
 					</tr>
 
 				</tbody>
