@@ -15,7 +15,7 @@ try{
 
     if($res){
         $users = $select_stmt->fetchAll(PDO::FETCH_OBJ);
-        var_dump($users);
+        // var_dump($users);
         // echo "<pre>";
         // print_r($students);
         // echo "</pre>";

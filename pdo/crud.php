@@ -77,6 +77,28 @@ function get_one_user($id)
     }
 }
 
+function check_user_exist($user, $pass)
+{
+    try{
+        $db=connectToDatabase();
+        if($db){
+            $select_query = 'select id from users where username=:user and password=:pass';
+            $select_stmt = $db->prepare($select_query);
+            $select_stmt->bindParam(":user",$user );
+            $select_stmt->bindParam(":pass",$pass );
+
+            $res=$select_stmt->execute();
+            if ($res){
+                $users = $select_stmt->fetchAll(PDO::FETCH_OBJ);
+                return $users;
+            }
+        }
+    return null;
+    }catch (PDOException $e){
+        echo $e->getMessage();
+    }
+}
+
 function add_user($data, $img = "")
 {
     try{
