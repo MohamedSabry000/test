@@ -13,12 +13,6 @@
       $data=$_GET["key"];
   }
 
-  // $filename = 'user.txt';
-  // $file = fopen($filename, 'r'); 
-
-  // if ($file) 
-  //     $lines = explode("\n", fread($file, filesize($filename)));
-	
   $fields=array();
 
 	if($data !== -1 && $data * -1 <= 0){
@@ -27,10 +21,6 @@
       $fields = $fields[0];
     }
     var_dump($fields);
-    // if($user){
-
-    // }
-    // $fields = explode(":", $lines[$data]);
   }	
 
 

@@ -38,7 +38,6 @@ session_start();
                     echo "<p>Country: ".$user[3]."</p>";
                     echo "<p>Gender: ".$user[4]."</p>";
                     echo "<p>User Name: ".$user[5]."</p>";
-                //    echo "<p>User Name: ".$user[5]."</p>";
                     echo "<p>Skills: ".$user[5]."</p>";
                     
                     echo "</tr>";

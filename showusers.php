@@ -68,35 +68,20 @@
             <?php
                 $users = get_all_users();
                 if($users){
-                    // var_dump($users);
-                    // exit();
                     foreach ($users as $user) {
-                        echo "<tr>";
-                        echo "<td>".$user->fname." ".$user->lname."</td>";
-                        echo "<td>".$user->username."</td>";
-                        echo "<td>".$user->address."</td>";
-                        echo "<td> <a href='./viewuser.php?key=".$user->id."'>View</a> </td>";
-                        echo "<td> <a href='./index.php?key=".$user->id."'>Edit</a> </td>";
-                        echo "<td> <a href='./deleteuser.php?key=".$user->id."'>Delete</a> </td>";
-                        echo "</tr>";
+                        if(isset($_SESSION["id"]) && $_SESSION["id"] !== $user->id){
+                        
+                            echo "<tr>";
+                            echo "<td>".$user->fname." ".$user->lname."</td>";
+                            echo "<td>".$user->username."</td>";
+                            echo "<td>".$user->address."</td>";
+                            echo "<td> <a href='./viewuser.php?key=".$user->id."'>View</a> </td>";
+                            echo "<td> <a href='./index.php?key=".$user->id."'>Edit</a> </td>";
+                            echo "<td> <a href='./deleteuser.php?key=".$user->id."'>Delete</a> </td>";
+                            echo "</tr>";
+                        }
                     }
                 }
-                // if (!empty($array)) {
-                //     foreach ($array as $key => $line) {
-                //         if($line != "") {
-                //             $user = explode(":", $line);
-                //             $encoded = json_encode($user);
-                //             echo "<tr>";
-                //             echo "<td>".$user[0]." ".$user[1]."</td>";
-                //             echo "<td>".$user[5]."</td>";
-                //             echo "<td>".$user[2]."</td>";
-                //             echo "<td> <a href='./viewuser.php?key=".$key."'>View</a> </td>";
-                //             echo "<td> <a href='./index.php?key=".$key."'>Edit</a> </td>";
-                //             echo "<td> <a href='./deleteuser.php?key=".$key."'>Delete</a> </td>";
-                //             echo "</tr>";
-                //         }
-                //     }
-                // }
             ?>
         </tbody>
     </table>

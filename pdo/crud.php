@@ -82,7 +82,7 @@ function check_user_exist($user, $pass)
     try{
         $db=connectToDatabase();
         if($db){
-            $select_query = 'select id from users where username=:user and password=:pass';
+            $select_query = 'select * from users where username=:user and password=:pass';
             $select_stmt = $db->prepare($select_query);
             $select_stmt->bindParam(":user",$user );
             $select_stmt->bindParam(":pass",$pass );
@@ -90,7 +90,9 @@ function check_user_exist($user, $pass)
             $res=$select_stmt->execute();
             if ($res){
                 $users = $select_stmt->fetchAll(PDO::FETCH_OBJ);
-                return $users;
+                if(count($users)>0){
+                    return $users[0];
+                }
             }
         }
     return null;

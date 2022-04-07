@@ -1,7 +1,6 @@
 <?php
 
 $error = array();
-// $fname = $lname = $address = $country = $gender = $username = $password = $confirm = $verify = $department = null;
 
 $keys = array("fname","lname","address","country","gender","username","password","confirm","verify","department");
 $data = array();
@@ -56,16 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     // Create User
     try {
-
-        // $filename = 'user.txt';
-        // $file = fopen($filename, 'r'); 
-
-        // if ($file) 
-        //     $lines = explode("\n", fread($file, filesize($filename)));
-        
         if(!empty($data)){
-            // unset($lines[$data]);
-
             require "pdo/crud.php";
             
             $user = add_user($data, $img);
@@ -73,14 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 header("Location:index.php");
                 exit();
             }
-            // $userfile = fopen("user.txt", "a");
-            // $data = isset($img)? implode(':', $data).":".$img : implode(':', $data);
-
-            // fwrite($userfile, $data."\n");
-            
-            // // fwrite($userfile, $user."\n");
-            
-            // fclose($userfile);
         }
 
         header("Location:showusers.php");

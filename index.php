@@ -7,57 +7,17 @@
 		
 		$data0=-1;
 		$localkey=$_GET["key"];
-		
-		// $filename = 'user.txt';
-		// $file = fopen($filename, 'r'); 
 
-		// if ($file) 
-		// 	$lines = explode("\n", fread($file, filesize($filename)));
-		
-		// if (!empty($lines)) {
-            // foreach ($lines as $key => $line) {
-					
-                if($data0 == -1) {
-						
-					if ($localkey){
+		if($data0 == -1) {	
+			if ($localkey){
+				require "pdo/crud.php";
+				$user = get_one_user($localkey)[0];
 
-						require "pdo/crud.php";
-            			$user = get_one_user($localkey)[0];
-
-						if($user){
-							// $data0 = $user;
-
-
-							$user->skills = explode(",", $user->skills);
-						}
-
-						// $data0 = explode(":", $line);
-						// foreach($fieldsNeeded as $key => $field){
-						// 	if(isset($data0[$key])){
-						// 		$data[$field] = $data0[$key];
-						// 	}
-						// }
-						
-						// echo "<pre>";
-						// print_r($user);
-						// echo "</pre>";
-
-						// $sk = explode(",", $data0[8]);
-						// $data["skills"] = array();
-						// foreach($sk as $skill){
-						// 	array_push($data["skills"], $skill);
-						// }
-						
-					}
-
-				}
-			// }
-		// }
-		
-		// $data = json_encode($data);
-		// $data = json_decode($data);
-
-		//exit();
+				if($user){
+					$user->skills = explode(",", $user->skills);
+				}					
+			}
+		}
 	}
 
 	if (isset($_GET["error"])){
@@ -66,7 +26,6 @@
 	if (isset($_GET["data"])){
 		$data = json_decode($_GET["data"]);
 	}
-	// var_dump($data->fname);
 	var_dump($localkey);
 ?>
 

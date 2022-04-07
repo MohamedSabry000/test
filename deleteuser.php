@@ -18,21 +18,11 @@ session_start();
         $lines = explode("\n", fread($file, filesize($filename)));
 	
 	if($data !== -1){
-		// unset($lines[$data]);
-
         require "pdo/crud.php";
-
 		delete_user($data);
-		// $userfile = fopen("user.txt", "w");
-        // foreach($lines as $line){
-        //     if($line != "")
-        //         fwrite($userfile, $line."\n");
-        // }
-        
-        // fclose($userfile);
-	}
 	
-    header("Location:showusers.php");
+        header("Location:showusers.php");
+    }
 	
 ?>
 

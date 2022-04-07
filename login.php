@@ -8,69 +8,23 @@
         
         $u = $_POST['username'];
         $p = $_POST['password'];
-        // echo "<pre></pre>";
-        // echo $u."<br>";
-        // echo $p."<br>";
-        // echo "<pre></pre>";
-        // echo $u;
-        // echo $p;
-
-         // Open the file
-        // $filename = 'user.txt';
-        // $file = fopen($filename, 'r'); 
-
-        // // Add each line to an array
-        // if ($file) 
-        //     $array = explode("\n", fread($file, filesize($filename)));
-
-        // // echo "hello";
 
         require "pdo/crud.php";
 
         if(isset($u) && isset($p)){
-            $id = check_user_exist($u, $p);
-            if($id){
+            $user = check_user_exist($u, $p);
+            if($user){
                 
                 session_start();
-                $_SESSION['id']=$id;
-                // echo $_SESSION['id'];
-                    // exit();
+                $_SESSION['id']=$user->id;
+
                 header("Location:showusers.php");
                 exit();
             }else{
                 echo 'username or password does not exist';
             }
         }
-
-        // if (!empty($array)) {
-        //     // echo "hello";
-        //     foreach ($array as $key => $line) {
-        //         // echo "hello";
-        //         if($line != "") {
-        //             // echo "hello";
-        //             $data = explode(":", $line);
-        //             // var_dump($data);
-        //             if($data[5] == $u && $data[6] == $p){
-        //                 echo "5";
-        //                 session_start();
-        //                 $_SESSION['id']=$key;
-        //                 echo $_SESSION['id'];
-        //                 // exit();
-        //                 header("Location:showusers.php");
-        //                 // $localkey = $key;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // } else{
-        //     echo 'username or password does not exist';
-        // }
-
-
     }
-
-
-
 ?>
 
 
